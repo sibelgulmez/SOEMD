@@ -1,6 +1,5 @@
 import os, errno, copy
-import OpCode
-import fileutil
+from lib import OpCode, fileutil
 
 def create_dict(filelist, dictfile='.'):
     if os.path.isfile(dictfile):
