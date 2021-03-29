@@ -1,7 +1,5 @@
 import os
-import output
-import fileutil
-import OpCode
+from lib import output, fileutil, OpCode
 
 
 def opcode_process(process_function, output_ext, delimeter=',', dataset='dataset', extensionList=['.exe', '.dll'],feature_type="text"):
