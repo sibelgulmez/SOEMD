@@ -18,7 +18,6 @@ def getNodes(listOffile, count):
 
     malware_list = {}
     opcode_list = []
-    import numpy as np
     freqs = np.zeros((len(listOffile)))
     for dictfile in malwares:
         f = open(dictfile, 'r')
