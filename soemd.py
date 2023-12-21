@@ -11,7 +11,7 @@ class file:
         self.opcodes_as_str = self.disassembler_object.opcode_sequence_as_str
         self.opcodes_as_list = self.disassembler_object.opcode_sequence_as_list
         self.edge_dict = dict()
-        self.gerenateEdgeDict()
+        self.generateEdgeDict()
     """
         Updates the frequency_dict with the new file whose opcode file path is given with opcode_file_path.
     """
@@ -26,7 +26,7 @@ class file:
     """
         Reads the edge file and generates edge dictionary. 
     """
-    def gerenateEdgeDict(self):
+    def generateEdgeDict(self):
         f = open(self.edge_file_path, "r")
         content = f.readlines()
         f.close()
