@@ -1,13 +1,24 @@
 import os
 
+""" Some useful functions for file operations """
+
+
+""" 
+a function to get the list of files (with exact file paths) according to an extension list
+    :param directory: 
+
+"""
+
+"""
+    :param          directory: source directory
+    :param          list of extensions (to include in the output) 
+"""
 def getFilePaths(directory, extensionList=[], reverse=False):
     file_paths = []
-
     for root, directories, files in os.walk(directory):
         for filename in files:
-            if (len(extensionList) > 0): 
+            if (len(extensionList) > 0):
                 extension = os.path.splitext(filename)[1]
-
                 if ((extension.lower() in extensionList) or (extension.upper() in extensionList)):
                     if (not reverse):
                         filepath = os.path.join(root, filename)
@@ -15,10 +26,47 @@ def getFilePaths(directory, extensionList=[], reverse=False):
                 elif (reverse):
                     filepath = os.path.join(root, filename)
                     file_paths.append(filepath)
-
-            else:  
+            else:
                 filepath = os.path.join(root, filename)
                 file_paths.append(filepath)
-
-    print("Number of file found : " + str(len(file_paths)))
+    # print("Number of file found : " + str(len(file_paths)))
     return file_paths
+
+"""
+   :param   filename:  path of the input file
+   :param   extension: desired extension of the output file (without dot)
+   :param   sequence:  sequence to process
+   :param   sep:       seperator of the sequence
+   :param   outfile    functional directory of the output file. if not given, the output file will be saved into the directory of the input file.
+"""
+def writeFeatureAsSequence(filename, extension, sequence, sep=',',outfile=''):
+    if(outfile==''):
+        dirname         = os.path.dirname(filename)
+    else:
+        dirname         = outfile
+
+    filename        = os.path.basename(filename)
+    (filename, ext) = os.path.splitext(filename)
+    output_filename = dirname+os.sep+extension+os.sep+filename+'.'+extension
+    seq = ""
+    os.makedirs(os.path.dirname(output_filename), exist_ok=True)
+    with open(output_filename, 'w') as output_file:
+        for s in sequence:
+            seq = seq+str(s)+sep
+        output_file.write(seq)
+
+
+"""
+    saves the content in a file
+    :param filename: path of the output file
+    :param extension: extension of the output file
+    :param content:   content to write into the file
+"""
+def writeIntoFile(filename, extension, content):
+    dirname         = os.path.dirname(filename)
+    filename        = os.path.basename(filename)
+    (filename, ext) = os.path.splitext(filename)
+    output_filename = dirname+os.sep+extension+os.sep+filename+'.'+extension
+    os.makedirs(os.path.dirname(output_filename), exist_ok=True)
+    with open(output_filename, 'w') as output_file:
+        output_file.write(content)
