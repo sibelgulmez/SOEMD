@@ -262,25 +262,27 @@ def train_test_split(malware_dict, benign_dict, train_ratio):
         # if malware
         if hash_code in malware_dict.keys():
             for walk in malware_dict[hash_code]:
-                X_train.append(walk)
+                X_train.append(" ".join(walk))
                 y_train.append(1)
         # if benign
         else:
             for walk in benign_dict[hash_code]:
-                X_train.append(walk)
+                X_train.append(" ".join(walk))
                 y_train.append(0)
 
     #test data
-    for hash_code in hash_codes[train_size:]:
+    for hash_code in hash_codes[:train_size]:
+        X_test[hash_code] = []
         # if malware
         if hash_code in malware_dict.keys():
-            X_test[hash_code] = malware_dict[hash_code]
+            for walk in malware_dict[hash_code]:
+                X_test[hash_code].append(" ".join(walk))
             y_test.append(1)
-        # if benign
         else:
-            X_test[hash_code] = benign_dict[hash_code]
+            for walk in benign_dict[hash_code]:
+                X_test[hash_code].append(" ".join(walk))
             y_test.append(0)
-    return X_train, y_train, X_test, y_test
+    return np.array(X_train), np.array(y_train), X_test, y_test
 
 
 """
@@ -291,7 +293,9 @@ def test_model (model, X_test, y_test, w2v_model, walks_per_file = 45):
     for key in X_test.keys():
         for walk in X_test[key]:
             X_test_vectors.append(w2v_model.getSampleVectors(walk))
-
+    print(X_test)
+    X_test_vectors = np.array(X_test_vectors)
+    print(X_test_vectors.shape)
     y_pred = model.predict(X_test_vectors)
 
     TN = 0
@@ -325,6 +329,8 @@ def test_model (model, X_test, y_test, w2v_model, walks_per_file = 45):
     acc = (TP + TN) / (TP + TN + FP + FN)
     tpr = (TP) / (TP + FN)
     return acc, tpr
+
+
 
 if __name__ == "__main__":
     soemd_object = soemd([""], [""])
