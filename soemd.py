@@ -293,9 +293,7 @@ def test_model (model, X_test, y_test, w2v_model, walks_per_file = 45):
     for key in X_test.keys():
         for walk in X_test[key]:
             X_test_vectors.append(w2v_model.getSampleVectors(walk))
-    print(X_test)
     X_test_vectors = np.array(X_test_vectors)
-    print(X_test_vectors.shape)
     y_pred = model.predict(X_test_vectors)
 
     TN = 0
