@@ -12,7 +12,7 @@ class w2v:
         :param vector_size: window size of the w2v model
         :param model_name: optional, file name to save model (should include .bin extension)
     """
-    def __init__(self, sentences, sequence_length = 50, vector_size = 5, model_name="word2vec_model.bin", create_model = True):
+    def __init__(self, sentences, sequence_length = 50, vector_size = 300, model_name="word2vec_model.bin", create_model = True):
         self.sentences = sentences
         self.sequence_length = sequence_length
         self.vector_size = vector_size
