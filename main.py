@@ -143,7 +143,7 @@ class dataset:
         save the nodes in a file for easy use.
         :return:
         """
-        f = open("nodes_rw.txt", "w")
+        f = open("nodes.txt", "w")
         for node in self.malware_nodes:
             f.write(node + "\n")
         for node in self.benign_nodes:
@@ -156,7 +156,7 @@ class dataset:
         :return:
         """
         print("Reading nodes.")
-        f = open("nodes_rw.txt", "r")
+        f = open("nodes.txt", "r")
         content = f.read().split("\n")
         f.close()
         self.malware_nodes = content[:self.node_count]
