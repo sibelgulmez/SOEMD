@@ -396,6 +396,6 @@ if __name__ == "__main__":
     w2v_model = w2v.w2v(sentences=X_train, create_model = True)
     X_train = w2v_model.getDatasetVectors()
     model = cnn_model() # assuming we have a cnn model
-    model.fit(X_train, y_train, epochs = 5, batch_size=25)
+    model.fit(X_train, y_train, epochs = epochs, batch_size=batch_size) # assuming we have the parameters
     acc, tpr = test_model (model, X_test, y_test, w2v_model)
     print("Accuracy:", acc, "and TPR:", tpr)
